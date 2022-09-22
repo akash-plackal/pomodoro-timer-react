@@ -27,7 +27,7 @@ const Timer = () => {
         setSeconds(seconds - 1);
       }
     }, 1000);
-  }, [seconds]);
+  }, [seconds, displayMessage, minutes]);
 
   const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
   const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
