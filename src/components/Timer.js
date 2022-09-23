@@ -1,47 +1,60 @@
 
 import React, { useState, useEffect } from "react";
-import './timer.css'
 
 const Timer = () => {
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
-  const [displayMessage, setDisplayMessage] = useState(false);
+
+  const [sec, setSec] = useState(0)
+  const [min, setMin] = useState(0)
+
+  const [newSec, setNewSec] = useState(0)
+
+  let timer
 
   useEffect(() => {
-    let interval = setInterval(() => {
-      clearInterval(interval);
+    timer = setInterval(() => {
 
-      if (seconds === 0) {
-        if (minutes !== 0) {
-          setSeconds(59);
-          setMinutes(minutes - 1);
-        } else {
-          let minutes = displayMessage ? 24 : 4;
-          let seconds = 59;
+      setSec(sec + 1)
 
-          setSeconds(seconds);
-          setMinutes(minutes);
-          setDisplayMessage(!displayMessage);
-        }
-      } else {
-        setSeconds(seconds - 1);
+      if (sec === 59) {
+        setMin(min + 1)
+        setSec(0)
       }
-    }, 1000);
-  }, [seconds, displayMessage, minutes]);
+    }, 1000)
 
-  const timerMinutes = minutes < 10 ? `0${minutes}` : minutes;
-  const timerSeconds = seconds < 10 ? `0${seconds}` : seconds;
+    return () => clearInterval(timer)
+  })
+
+
+  const reset = () => {
+    setSec(0)
+    setMin(0)
+  }
+
+  const stop = () => {
+    setNewSec(sec)
+    clearInterval(timer)
+    // not working
+  }
+
 
   return (
-    <div className="pomodoro">
-      <div className="message">
-        {displayMessage && <div>Break time! New session starts in:</div>}
+    <div className="border-2 h-28 flex flex-col items-center justify-center">
+      <h1>Timer</h1>
+      <h1>{min < 10 ? '0' + min : min}
+        :
+        {sec < 10 ? '0' + sec : sec}
+      </h1>
+
+      <div>
+        {console.log(newSec)}
+        <button className='border-2' onClick={reset}>reset</button>
+        <button className='border-2' onClick={stop}>pause</button>
+
       </div>
-      <div className="timer">
-        {timerMinutes}:{timerSeconds}
-      </div>
-    </div >
-  );
+
+    </div>
+  )
+
 }
 
 export default Timer;
