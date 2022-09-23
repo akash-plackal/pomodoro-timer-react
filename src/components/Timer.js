@@ -1,60 +1,43 @@
-
-import React, { useState, useEffect } from "react";
+import React from 'react'
+import { useTimer } from '../hooks/useTimer'
 
 const Timer = () => {
 
-  const [sec, setSec] = useState(0)
-  const [min, setMin] = useState(0)
-
-  const [newSec, setNewSec] = useState(0)
-
-  let timer
-
-  useEffect(() => {
-    timer = setInterval(() => {
-
-      setSec(sec + 1)
-
-      if (sec === 59) {
-        setMin(min + 1)
-        setSec(0)
-      }
-    }, 1000)
-
-    return () => clearInterval(timer)
-  })
-
-
-  const reset = () => {
-    setSec(0)
-    setMin(0)
-  }
-
-  const stop = () => {
-    setNewSec(sec)
-    clearInterval(timer)
-    // not working
-  }
-
+  const {
+    timer: { milliseconds, seconds, minutes },
+    play,
+    pause,
+    reset,
+    // breakTime,
+    // setBrakeTime
+  } = useTimer()
 
   return (
-    <div className="border-2 h-28 flex flex-col items-center justify-center">
-      <h1>Timer</h1>
-      <h1>{min < 10 ? '0' + min : min}
-        :
-        {sec < 10 ? '0' + sec : sec}
-      </h1>
+    <div
+      className='border-2 shadow h-[40vh] w-[35%] rounded m-auto mt-[15%] 
+      flex flex-col items-center justify-center'>
 
-      <div>
-        {console.log(newSec)}
-        <button className='border-2' onClick={reset}>reset</button>
-        <button className='border-2' onClick={stop}>pause</button>
+      <p className='text-8xl'>
+        {minutes}:{seconds}:{milliseconds < 10 ? '0' + milliseconds : milliseconds}
+      </p>
+      <div className='flex gap-4'>
+
+        <button
+          onClick={play}
+          className='px-5 border-2 rounded'
+        >Play</button>
+        <button
+          onClick={pause}
+          className='px-5 border-2 rounded'
+        >Pause</button>
+        <button
+          onClick={reset}
+          className='px-5 border-2 rounded'
+        >Stop</button>
 
       </div>
-
     </div>
   )
-
 }
 
-export default Timer;
+export default Timer
