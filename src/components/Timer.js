@@ -1,18 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './timer.css'
 import { useTimer } from '../hooks/useTimer'
 
 const Timer = () => {
 
-  const [isPaused, setIsPaused] = useState(false)
 
   const {
     timer: { milliseconds, seconds, minutes },
     play,
     pause,
     reset,
-    // breakTime,
-    // setBrakeTime
   } = useTimer()
 
 
