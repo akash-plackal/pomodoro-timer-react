@@ -2,6 +2,10 @@
 import React, { useState, useEffect } from 'react';
 import LoginScreen from './components/LoginScreen.js'
 import Timer from './components/Timer.js'
+// import {
+//   onAuthStateChanged,
+//   signOut,
+// } from "firebase/auth";
 
 const App = () => {
 
