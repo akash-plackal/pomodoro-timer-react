@@ -20,7 +20,7 @@ const App = () => {
         <LoginScreen />
         :
         <div className='h-screen flex flex-col border-2 items-center'>
-          <h1 className='text-gray-500 flex justify-center'>Pomodoro timer</h1>
+          <h1 className='text-gray-500 flex justify-center text-2xl mt-9'>Pomodoro timer</h1>
           <Timer />
         </div>
       }
